@@ -1,0 +1,63 @@
+{
+  "dependencies": {
+    "hn": "hn:",
+    "sms": "sms:"
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "name": "follow",
+            "type": "Void",
+            "params": [
+              {
+                "name": "username",
+                "type": "String",
+                "ofType": "hn:User"
+              }
+            ]
+          },
+          {
+            "name": "setup",
+            "type": "Void"
+          },
+          {
+            "name": "check",
+            "type": "Void"
+          },
+          {
+            "name": "endpoint",
+            "type": "String",
+            "hints": {
+              "hidden": true
+            },
+            "params": [
+              {
+                "name": "method",
+                "type": "String"
+              },
+              {
+                "name": "body",
+                "type": "String"
+              },
+              {
+                "name": "path",
+                "type": "String"
+              },
+              {
+                "name": "query",
+                "type": "String"
+              },
+              {
+                "name": "headers",
+                "type": "String"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
