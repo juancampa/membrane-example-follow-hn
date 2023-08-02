@@ -21,12 +21,6 @@ export async function follow({ args: { username } }) {
   state[username] = { id, lastSeen };
 }
 
-export const Root = {
-  endpoint() {
-    return `<pre>${JSON.stringify(state, null, " ")}</pre>`;
-  },
-};
-
 // Invoked periodically to check if there are new items.
 export async function check() {
   for (const [username, { lastSeen }] of Object.entries(state)) {

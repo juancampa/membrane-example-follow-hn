@@ -11,6 +11,324 @@
   },
   "imports": [
     {
+      "name": "sms",
+      "schema": {
+        "types": [
+          {
+            "name": "Root",
+            "description": "Send yourself text messages",
+            "actions": [
+              {
+                "name": "configure",
+                "description": "Configure your phone number to send and receive text messages.\nPrefix with '+' sign followed by country code.",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "number",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "send",
+                "description": "Sends an SMS to the configured phone number",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "message",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "handleSms",
+                "description": "Tells the user program that an sms was received. You don't normally have to use this.",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "message",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {
+                  "hidden": true
+                }
+              },
+              {
+                "name": "endpoint",
+                "description": "The endpoint action",
+                "type": "String",
+                "params": [
+                  {
+                    "name": "method",
+                    "description": "HTTP method",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "path",
+                    "description": "HTTP path",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "query",
+                    "description": "HTTP query string, encoded as JSON",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "headers",
+                    "description": "HTTP headers, encoded as JSON",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "body",
+                    "description": "HTTP body, if any",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {
+                  "hidden": true
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Root",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": [
+              {
+                "name": "received",
+                "description": "",
+                "type": "ReceivedEvent",
+                "params": [],
+                "hints": {}
+              }
+            ]
+          },
+          {
+            "name": "ReceivedEvent",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "message",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "ReceivedEvent",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          }
+        ],
+        "imports": [
+          {
+            "name": "sys-sms",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [
+                    {
+                      "name": "configure",
+                      "description": "",
+                      "type": "Void",
+                      "params": [
+                        {
+                          "name": "number",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "send",
+                      "description": "",
+                      "type": "Void",
+                      "params": [
+                        {
+                          "name": "message",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ],
+                  "fields": [],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": "tbd"
+            }
+          },
+          {
+            "name": "sys-clock",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [
+                    {
+                      "name": "sleep",
+                      "description": "",
+                      "type": "Void",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "seconds",
+                          "description": "",
+                          "type": "Float",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ],
+                  "fields": [],
+                  "events": [
+                    {
+                      "name": "timer",
+                      "description": "",
+                      "type": "TimerEvent",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "spec",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "maxCount",
+                          "description": "",
+                          "type": "Int",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "timerAt",
+                      "description": "",
+                      "type": "TimerEvent",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "seconds",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ]
+                },
+                {
+                  "name": "TimerEvent",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "id",
+                      "description": "",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": ""
+            }
+          },
+          {
+            "name": "sys-process",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "endpointUrl",
+                      "description": "Gets the program's own endpoint URL",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": ""
+            }
+          }
+        ]
+      },
+      "source": {
+        "Program": "tbd"
+      }
+    },
+    {
       "name": "hn",
       "schema": {
         "types": [
@@ -108,6 +426,20 @@
                 }
               },
               {
+                "name": "stories",
+                "description": "",
+                "type": "ItemCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "tests",
+                "description": "",
+                "type": "Tests",
+                "params": [],
+                "hints": {}
+              },
+              {
                 "name": "gref",
                 "description": "A reference to this node",
                 "type": "Ref",
@@ -146,13 +478,19 @@
                     "name": "page",
                     "description": "",
                     "type": "Int",
-                    "optional": false
+                    "optional": true
+                  },
+                  {
+                    "name": "topic",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
                   },
                   {
                     "name": "pageSize",
                     "description": "",
                     "type": "Int",
-                    "optional": false
+                    "optional": true
                   }
                 ],
                 "hints": {}
@@ -203,7 +541,15 @@
           {
             "name": "UserCollection",
             "description": "",
-            "actions": [],
+            "actions": [
+              {
+                "name": "create",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              }
+            ],
             "fields": [
               {
                 "name": "one",
@@ -436,6 +782,67 @@
                 "description": "A reference to this node",
                 "type": "Ref",
                 "ofType": "UserItemPage",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "UserItemCollection",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "page",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "one",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "UserItemCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Tests",
+            "description": "",
+            "actions": [
+              {
+                "name": "testGetStories",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "testGetItems",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "fields": [
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Tests",
                 "params": [],
                 "hints": {}
               }
@@ -1320,324 +1727,6 @@
                   }
                 }
               ]
-            },
-            "source": {
-              "Program": "tbd"
-            }
-          },
-          {
-            "name": "sys-clock",
-            "schema": {
-              "types": [
-                {
-                  "name": "Root",
-                  "description": "",
-                  "actions": [
-                    {
-                      "name": "sleep",
-                      "description": "",
-                      "type": "Void",
-                      "params": [
-                        {
-                          "name": "key",
-                          "description": "",
-                          "type": "String",
-                          "optional": false
-                        },
-                        {
-                          "name": "seconds",
-                          "description": "",
-                          "type": "Float",
-                          "optional": false
-                        }
-                      ],
-                      "hints": {}
-                    }
-                  ],
-                  "fields": [],
-                  "events": [
-                    {
-                      "name": "timer",
-                      "description": "",
-                      "type": "TimerEvent",
-                      "params": [
-                        {
-                          "name": "key",
-                          "description": "",
-                          "type": "String",
-                          "optional": false
-                        },
-                        {
-                          "name": "spec",
-                          "description": "",
-                          "type": "String",
-                          "optional": false
-                        },
-                        {
-                          "name": "maxCount",
-                          "description": "",
-                          "type": "Int",
-                          "optional": false
-                        }
-                      ],
-                      "hints": {}
-                    },
-                    {
-                      "name": "timerAt",
-                      "description": "",
-                      "type": "TimerEvent",
-                      "params": [
-                        {
-                          "name": "key",
-                          "description": "",
-                          "type": "String",
-                          "optional": false
-                        },
-                        {
-                          "name": "seconds",
-                          "description": "",
-                          "type": "String",
-                          "optional": false
-                        }
-                      ],
-                      "hints": {}
-                    }
-                  ]
-                },
-                {
-                  "name": "TimerEvent",
-                  "description": "",
-                  "actions": [],
-                  "fields": [
-                    {
-                      "name": "id",
-                      "description": "",
-                      "type": "String",
-                      "params": [],
-                      "hints": {}
-                    }
-                  ],
-                  "events": []
-                }
-              ],
-              "imports": []
-            },
-            "source": {
-              "Program": ""
-            }
-          },
-          {
-            "name": "sys-process",
-            "schema": {
-              "types": [
-                {
-                  "name": "Root",
-                  "description": "",
-                  "actions": [],
-                  "fields": [
-                    {
-                      "name": "endpointUrl",
-                      "description": "Gets the program's own endpoint URL",
-                      "type": "String",
-                      "params": [],
-                      "hints": {}
-                    }
-                  ],
-                  "events": []
-                }
-              ],
-              "imports": []
-            },
-            "source": {
-              "Program": ""
-            }
-          }
-        ]
-      },
-      "source": {
-        "Program": "tbd"
-      }
-    },
-    {
-      "name": "sms",
-      "schema": {
-        "types": [
-          {
-            "name": "Root",
-            "description": "Send yourself text messages",
-            "actions": [
-              {
-                "name": "configure",
-                "description": "Configure your phone number to send and receive text messages.\nPrefix with '+' sign followed by country code.",
-                "type": "Void",
-                "params": [
-                  {
-                    "name": "number",
-                    "description": "",
-                    "type": "String",
-                    "optional": false
-                  }
-                ],
-                "hints": {}
-              },
-              {
-                "name": "send",
-                "description": "Sends an SMS to the configured phone number",
-                "type": "Void",
-                "params": [
-                  {
-                    "name": "message",
-                    "description": "",
-                    "type": "String",
-                    "optional": false
-                  }
-                ],
-                "hints": {}
-              },
-              {
-                "name": "handleSms",
-                "description": "Tells the user program that an sms was received. You don't normally have to use this.",
-                "type": "Void",
-                "params": [
-                  {
-                    "name": "message",
-                    "description": "",
-                    "type": "String",
-                    "optional": false
-                  }
-                ],
-                "hints": {
-                  "hidden": true
-                }
-              },
-              {
-                "name": "endpoint",
-                "description": "The endpoint action",
-                "type": "String",
-                "params": [
-                  {
-                    "name": "method",
-                    "description": "HTTP method",
-                    "type": "String",
-                    "optional": false
-                  },
-                  {
-                    "name": "path",
-                    "description": "HTTP path",
-                    "type": "String",
-                    "optional": false
-                  },
-                  {
-                    "name": "query",
-                    "description": "HTTP query string, encoded as JSON",
-                    "type": "String",
-                    "optional": true
-                  },
-                  {
-                    "name": "headers",
-                    "description": "HTTP headers, encoded as JSON",
-                    "type": "String",
-                    "optional": false
-                  },
-                  {
-                    "name": "body",
-                    "description": "HTTP body, if any",
-                    "type": "String",
-                    "optional": true
-                  }
-                ],
-                "hints": {
-                  "hidden": true
-                }
-              }
-            ],
-            "fields": [
-              {
-                "name": "gref",
-                "description": "A reference to this node",
-                "type": "Ref",
-                "ofType": "Root",
-                "params": [],
-                "hints": {}
-              }
-            ],
-            "events": [
-              {
-                "name": "received",
-                "description": "",
-                "type": "ReceivedEvent",
-                "params": [],
-                "hints": {}
-              }
-            ]
-          },
-          {
-            "name": "ReceivedEvent",
-            "description": "",
-            "actions": [],
-            "fields": [
-              {
-                "name": "message",
-                "description": "",
-                "type": "String",
-                "params": [],
-                "hints": {}
-              },
-              {
-                "name": "gref",
-                "description": "A reference to this node",
-                "type": "Ref",
-                "ofType": "ReceivedEvent",
-                "params": [],
-                "hints": {}
-              }
-            ],
-            "events": []
-          }
-        ],
-        "imports": [
-          {
-            "name": "sys-sms",
-            "schema": {
-              "types": [
-                {
-                  "name": "Root",
-                  "description": "",
-                  "actions": [
-                    {
-                      "name": "configure",
-                      "description": "",
-                      "type": "Void",
-                      "params": [
-                        {
-                          "name": "number",
-                          "description": "",
-                          "type": "String",
-                          "optional": false
-                        }
-                      ],
-                      "hints": {}
-                    },
-                    {
-                      "name": "send",
-                      "description": "",
-                      "type": "Void",
-                      "params": [
-                        {
-                          "name": "message",
-                          "description": "",
-                          "type": "String",
-                          "optional": false
-                        }
-                      ],
-                      "hints": {}
-                    }
-                  ],
-                  "fields": [],
-                  "events": []
-                }
-              ],
-              "imports": []
             },
             "source": {
               "Program": "tbd"
