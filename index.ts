@@ -7,8 +7,8 @@ import { nodes, root, state } from "membrane";
 const { hn, sms } = nodes;
 
 // Sets up a "cron" timer that invokes `check` periodically.
-export function setup() {
-  root.check.$invokeAtCron("30 35 * * * *");
+export function configure() {
+  root.check.$cron("30 35 * * * *");
 }
 
 // Invoke this action to start following a user.
