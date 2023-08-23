@@ -7,6 +7,7 @@
     "types": [
       {
         "name": "Root",
+        "description": "Follow users on Hacker News and get notifications (email or SMS).",
         "actions": [
           {
             "name": "follow",
@@ -20,7 +21,7 @@
             ]
           },
           {
-            "name": "setup",
+            "name": "configure",
             "type": "Void"
           },
           {
