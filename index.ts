@@ -12,7 +12,7 @@ export function configure() {
 }
 
 // Invoke this action to start following a user.
-export async function follow({ args: { username } }) {
+export async function follow({ username }) {
   // Query the user to find out their id and their last submitted item (post, comment, etc).
   const { id, submitted } = await hn.users
     .one({ id: username })
